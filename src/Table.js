@@ -1,4 +1,5 @@
 import MUIDataTable from "mui-datatables";
+import Container from '@material-ui/core/Container'
 
 export default function EnhancedTable() {
   
@@ -30,10 +31,10 @@ export default function EnhancedTable() {
   ];
   
   const data = [
-    { ranking: 1, name: "Joe James", company: "Test Corp", ratingPoint: 10 },
-    { ranking: 2, name: "John Walsh", company: "Test Corp", ratingPoint: 20 },
-    { ranking: 3, name: "Bob Herm", company: "Test Corp", ratingPoint: 30 },
-    { ranking: 4, name: "James Houston", company: "Test Corp", ratingPoint: 40 },
+    { ranking: 1, name: "Joe James", ratingPoint: 10 },
+    { ranking: 2, name: "John Walsh", ratingPoint: 20 },
+    { ranking: 3, name: "Bob Herm", ratingPoint: 30 },
+    { ranking: 4, name: "James Houston", ratingPoint: 40 },
   ];
   
   const options = {
@@ -48,11 +49,13 @@ export default function EnhancedTable() {
   };
 
   return (
-    <MUIDataTable
-      title={"Modest Grass Rating Points"}
-      data={data}
-      columns={columns}
-      options={options}
-    />
+    <Container fixed>
+      <MUIDataTable
+        title={"Modest Grass Rating Points"}
+        data={data}
+        columns={columns}
+        options={options}
+      />
+    </Container>
   );
 }
