@@ -92,7 +92,7 @@ export default function EnhancedTable() {
     download: false,
     print: false,
     pagination: true,
-    rowsPerPage: (useCheckMobileScreen ? 25 : 50),
+    rowsPerPage: (useCheckMobileScreen ? 50 : 25),
     rowsPerPageOptions: [10,15,50,100],
     selectableRows: 'none',
     viewColumns: false
