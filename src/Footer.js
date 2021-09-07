@@ -3,7 +3,7 @@ import './App.css';
 function Footer() {
   return (
     <div className="footer">
-      &copy; {new Date().getFullYear()}, made with &#10084; by <a href="https://cussoncheung.com" target="_blank">Cusson</a>. <br />All rights reserved
+      &copy; {new Date().getFullYear()} <a href="https://cussoncheung.com" target="_blank">Cusson</a>, all rights reserved. Made with &#10084;.
     </div>
   );
 }
