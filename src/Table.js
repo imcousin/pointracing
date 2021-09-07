@@ -20,6 +20,8 @@ export default function EnhancedTable() {
     return (width <= 768);
   }
   
+  // console.log('useCheckMobileScreen ',useCheckMobileScreen())
+
   const columns = [
     {
       name: "Ranking",
@@ -92,7 +94,7 @@ export default function EnhancedTable() {
     download: false,
     print: false,
     pagination: true,
-    rowsPerPage: (useCheckMobileScreen ? 50 : 25),
+    rowsPerPage: (useCheckMobileScreen ? 25 : 50), // not working
     rowsPerPageOptions: [10,15,50,100],
     selectableRows: 'none',
     viewColumns: false
