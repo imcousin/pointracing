@@ -1,18 +1,36 @@
+import React from 'react';
 import MUIDataTable from "mui-datatables";
+import Container from '@material-ui/core/Container'
+import Papa from 'papaparse';
 
 export default function EnhancedTable() {
   
   const columns = [
     {
-    name: "ranking",
+    name: "Ranking",
     label: "Ranking",
     options: {
       filter: true,
       sort: true,
+      /*
+        In this case, age is a string, but we want to compare it as if it was a number.
+        If you comment out the sortCompare method, you'll see how sorting as a string
+        is different than sorting as a number. Typically an age field would be a number
+        so we wouldn't need to write a function like this. But the sortCompare is available
+        if you run into a situation like this.
+      */
+      sortCompare: (order) => {
+        return (obj1, obj2) => {
+          // console.log(order);
+          let val1 = parseInt(obj1.data, 10);
+          let val2 = parseInt(obj2.data, 10);
+          return (val1 - val2) * (order === 'asc' ? 1 : -1);
+        }
+      }
     }
     },
     {
-    name: "name",
+    name: "Name",
     label: "Name",
     options: {
       filter: true,
@@ -20,39 +38,61 @@ export default function EnhancedTable() {
     }
     },
     {
-    name: "ratingPoint",
+    name: "RatingPoints",
     label: "Rating Point",
     options: {
       filter: true,
       sort: true,
+      sortCompare: (order) => {
+        return (obj1, obj2) => {
+          // console.log(order);
+          let val1 = parseInt(obj1.data, 10);
+          let val2 = parseInt(obj2.data, 10);
+          return (val1 - val2) * (order === 'asc' ? 1 : -1);
+        }
+      }
     }
     },
   ];
-  
-  const data = [
-    { ranking: 1, name: "Joe James", company: "Test Corp", ratingPoint: 10 },
-    { ranking: 2, name: "John Walsh", company: "Test Corp", ratingPoint: 20 },
-    { ranking: 3, name: "Bob Herm", company: "Test Corp", ratingPoint: 30 },
-    { ranking: 4, name: "James Houston", company: "Test Corp", ratingPoint: 40 },
-  ];
-  
+
+
+const [data, setRows] = React.useState([]);
+  React.useEffect(() => {
+    async function getData() {
+      const response = await fetch('/data/points.csv');
+      const reader = response.body.getReader()
+      const result = await reader.read()
+      const decoder = new TextDecoder('UTF-8')
+      const csv = decoder.decode(result.value)
+      const results = Papa.parse(csv, { header: true })
+      const rows = results.data
+      setRows(rows)
+    }
+    getData()
+  }, [])
+
   const options = {
     filter: false,
     filterType: 'checkbox',
     download: false,
     print: false,
     pagination: true,
-    rowPerPage: 100,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10,15,50,100],
     selectableRows: 'none',
     viewColumns: false
-  };
+  }
+
+  // console.log('data ', data)
 
   return (
-    <MUIDataTable
-      title={"Modest Grass Rating Points"}
-      data={data}
-      columns={columns}
-      options={options}
-    />
+    <Container fixed>
+      <MUIDataTable
+        title={"Modest Grass Rating Points"}
+        data={data}
+        columns={columns}
+        options={options}
+      />
+    </Container>
   );
 }
