@@ -7,56 +7,56 @@ export default function EnhancedTable() {
   
   const columns = [
     {
-    name: "Ranking",
-    label: "Ranking",
-    options: {
-      filter: true,
-      sort: true,
-      /*
-        In this case, age is a string, but we want to compare it as if it was a number.
-        If you comment out the sortCompare method, you'll see how sorting as a string
-        is different than sorting as a number. Typically an age field would be a number
-        so we wouldn't need to write a function like this. But the sortCompare is available
-        if you run into a situation like this.
-      */
-      sortCompare: (order) => {
-        return (obj1, obj2) => {
-          // console.log(order);
-          let val1 = parseInt(obj1.data, 10);
-          let val2 = parseInt(obj2.data, 10);
-          return (val1 - val2) * (order === 'asc' ? 1 : -1);
+      name: "Ranking",
+      label: "Ranking",
+      options: {
+        filter: true,
+        sort: true,
+        /*
+          In this case, age is a string, but we want to compare it as if it was a number.
+          If you comment out the sortCompare method, you'll see how sorting as a string
+          is different than sorting as a number. Typically an age field would be a number
+          so we wouldn't need to write a function like this. But the sortCompare is available
+          if you run into a situation like this.
+        */
+        sortCompare: (order) => {
+          return (obj1, obj2) => {
+            // console.log(order);
+            let val1 = parseInt(obj1.data, 10);
+            let val2 = parseInt(obj2.data, 10);
+            return (val1 - val2) * (order === 'asc' ? 1 : -1);
+          }
         }
       }
-    }
     },
     {
-    name: "Name",
-    label: "Name",
-    options: {
-      filter: true,
-      sort: false,
-    }
+      name: "Name",
+      label: "Name",
+      options: {
+        filter: true,
+        sort: false,
+      }
     },
     {
-    name: "RatingPoints",
-    label: "Rating Point",
-    options: {
-      filter: true,
-      sort: true,
-      sortCompare: (order) => {
-        return (obj1, obj2) => {
-          // console.log(order);
-          let val1 = parseInt(obj1.data, 10);
-          let val2 = parseInt(obj2.data, 10);
-          return (val1 - val2) * (order === 'asc' ? 1 : -1);
+      name: "RatingPoints",
+      label: "Rating Point",
+      options: {
+        filter: true,
+        sort: true,
+        sortCompare: (order) => {
+          return (obj1, obj2) => {
+            // console.log(order);
+            let val1 = parseInt(obj1.data, 10);
+            let val2 = parseInt(obj2.data, 10);
+            return (val1 - val2) * (order === 'asc' ? 1 : -1);
+          }
         }
       }
-    }
     },
   ];
 
 
-const [data, setRows] = React.useState([]);
+  const [data, setRows] = React.useState([]);
   React.useEffect(() => {
     async function getData() {
       const response = await fetch('/data/points.csv');
