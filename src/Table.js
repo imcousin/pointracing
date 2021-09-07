@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MUIDataTable from "mui-datatables";
 import Container from '@material-ui/core/Container'
 import Papa from 'papaparse';
 
 export default function EnhancedTable() {
+  const useCheckMobileScreen = () => {
+    const [width, setWidth] = useState(window.innerWidth);
+    const handleWindowSizeChange = () => {
+      setWidth(window.innerWidth);
+    }
+
+    useEffect(() => {
+      window.addEventListener('resize', handleWindowSizeChange);
+      return () => {
+        window.removeEventListener('resize', handleWindowSizeChange);
+      }
+    }, []);
+
+    return (width <= 768);
+  }
   
   const columns = [
     {
@@ -55,9 +70,9 @@ export default function EnhancedTable() {
     },
   ];
 
-
-  const [data, setRows] = React.useState([]);
-  React.useEffect(() => {
+  // Load CSV File.
+  const [data, setRows] = useState([]);
+  useEffect(() => {
     async function getData() {
       const response = await fetch('/data/points.csv');
       const reader = response.body.getReader()
@@ -77,7 +92,7 @@ export default function EnhancedTable() {
     download: false,
     print: false,
     pagination: true,
-    rowsPerPage: 50,
+    rowsPerPage: (useCheckMobileScreen ? 25 : 50),
     rowsPerPageOptions: [10,15,50,100],
     selectableRows: 'none',
     viewColumns: false
