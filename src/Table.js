@@ -3,6 +3,8 @@ import MUIDataTable from "mui-datatables";
 import Container from '@material-ui/core/Container'
 import Papa from 'papaparse';
 
+// import List from './components/List';
+
 export default function EnhancedTable() {
   const useCheckMobileScreen = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -86,6 +88,16 @@ export default function EnhancedTable() {
       setRows(rows)
     }
     getData()
+
+
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/1GgW0t9RgVqwZXQ7kZBdYQWuE4ahveN5StkgeGFnI_Cw/values/06-15-19?key=${process.env.GOOGLE_APIKEY}`;
+    // const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/1GgW0t9RgVqwZXQ7kZBdYQWuE4ahveN5StkgeGFnI_Cw/values/06-15-19!A1:C5?key=${process.env.GOOGLE_APIKEY}`; // in specific range
+    // AIzaSyBo033iHzBEGrQqT62UClNY659d_Bklo2Q
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((repos) => {
+        console.log(repos);
+      });
   }, [])
 
   const options = {
@@ -101,6 +113,7 @@ export default function EnhancedTable() {
   }
 
   // console.log('data ', data)
+
 
   return (
     <Container fixed>
