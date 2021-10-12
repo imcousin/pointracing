@@ -91,7 +91,6 @@ export default function EnhancedTable() {
 
 
     console.log('apikey:', process.env.REACT_APP_GOOGLE_APIKEY);
-    console.log('apikey:', REACT_APP_GOOGLE_APIKEY);
     const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/1GgW0t9RgVqwZXQ7kZBdYQWuE4ahveN5StkgeGFnI_Cw/values/06-15-19?key=${process.env.REACT_APP_GOOGLE_APIKEY}`;
     console.log(apiUrl);
     // const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/1GgW0t9RgVqwZXQ7kZBdYQWuE4ahveN5StkgeGFnI_Cw/values/06-15-19!A1:C5?key=${process.env.GOOGLE_APIKEY}`; // in specific range
